@@ -3,6 +3,7 @@ package com.careerlytics.backend.controller;
 import com.careerlytics.backend.dto.AuthDto;
 import com.careerlytics.backend.service.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174", "https://careerlytics.netlify.app"}, allowCredentials = "true")
 public class AuthController {
 
     private final AuthService authService;
