@@ -553,7 +553,7 @@ const LandingPage = () => {
                   <Mail size={24} />
                 </div>
                 <span className="text-lg group-hover:text-neonBlue transition-colors">
-                  support@careerlytics.com
+                  mrshahzad1011@gmail.com
                 </span>
               </div>
               <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400 group cursor-pointer">
