@@ -20,6 +20,8 @@ import {
   Twitter,
   Linkedin,
   Check,
+  Menu,
+  X,
 } from "lucide-react";
 import ThemeToggle from "../components/ThemeToggle";
 import AnimatedBackground from "../components/AnimatedBackground";
@@ -31,6 +33,7 @@ const LandingPage = () => {
     message: "",
   });
   const [status, setStatus] = useState("idle"); // idle, submitting, success
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,19 +46,21 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-lightBg dark:bg-darkBg text-gray-900 dark:text-white transition-colors duration-300 overflow-hidden relative">
+    <div className="min-h-screen bg-lightBg dark:bg-darkBg text-gray-900 dark:text-white transition-colors duration-300 overflow-x-hidden relative">
       <AnimatedBackground />
 
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 bg-lightBg/80 dark:bg-darkBg/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 py-4 flex justify-between items-center">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-lightBg/80 dark:bg-darkBg/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-8 py-3 sm:py-4 flex justify-between items-center">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neonBlue to-neonPurple cursor-pointer"
+            className="text-lg sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neonBlue to-neonPurple cursor-pointer flex-shrink-0"
           >
             CareerLytics
           </motion.div>
-          <div className="space-x-4 flex items-center pr-2">
+          
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex space-x-4 items-center">
             <ThemeToggle />
             <Link to="/login">
               <motion.span
@@ -75,12 +80,53 @@ const LandingPage = () => {
               </motion.button>
             </Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white p-1.5 rounded-lg"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-lightBg dark:bg-darkBg overflow-hidden"
+            >
+              <div className="px-4 py-4 space-y-3">
+                <Link
+                  to="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full text-center px-4 py-3 rounded-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full text-center px-4 py-3 bg-neonBlue text-black font-bold rounded-lg shadow-lg shadow-neonBlue/20"
+                >
+                  Get Started
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Hero Section */}
-      <header className="relative pt-32 pb-32 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+      <header className="relative pt-24 sm:pt-32 pb-16 sm:pb-32 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -94,7 +140,7 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold mb-8 leading-tight"
+            className="text-3xl sm:text-5xl md:text-7xl font-bold mb-6 sm:mb-8 leading-tight"
           >
             Supercharge Your <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-neonBlue via-purple-500 to-neonPurple">
@@ -106,7 +152,7 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed"
+            className="text-base sm:text-xl text-gray-600 dark:text-gray-400 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed px-2"
           >
             Unlock your potential with AI-driven resume analysis, personalized
             job recommendations, and a dynamic career roadmap designed just for
@@ -123,7 +169,7 @@ const LandingPage = () => {
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-neonBlue to-neonPurple text-white font-bold rounded-xl shadow-lg shadow-neonBlue/20 flex items-center justify-center gap-2 text-lg group"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-neonBlue to-neonPurple text-white font-bold rounded-xl shadow-lg shadow-neonBlue/20 flex items-center justify-center gap-2 text-base sm:text-lg group"
               >
                 Start Your Journey{" "}
                 <ArrowRight
@@ -140,7 +186,7 @@ const LandingPage = () => {
                   color: "#00f3ff",
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-lightCardBg dark:bg-cardBg border border-gray-200 dark:border-gray-700 rounded-xl text-lg font-medium transition-colors"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-lightCardBg dark:bg-cardBg border border-gray-200 dark:border-gray-700 rounded-xl text-base sm:text-lg font-medium transition-colors"
               >
                 Existing User? Login
               </motion.button>
@@ -150,10 +196,10 @@ const LandingPage = () => {
       </header>
 
       {/* Video Intro Section */}
-      <section className="py-24 relative overflow-hidden backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+      <section className="py-12 sm:py-24 relative overflow-hidden backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <div className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               See CareerLytics in Action
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -183,10 +229,10 @@ const LandingPage = () => {
       </section>
 
       {/* Features Grid */}
-      <section className="py-24 relative backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-12 sm:py-24 relative backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               Everything you need to succeed
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -195,7 +241,7 @@ const LandingPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <FeatureCard
               icon={<Upload className="text-neonBlue" size={32} />}
               title="Smart Resume Analysis"
@@ -237,10 +283,10 @@ const LandingPage = () => {
       </section>
 
       {/* User Stories Video Section */}
-      <section className="py-24 relative backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-12 sm:py-24 relative backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               Success Stories
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -249,11 +295,11 @@ const LandingPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {/* YouTube Shorts Embeds */}
             <motion.div
               whileHover={{ y: -10, scale: 1.02 }}
-              className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-800 h-[500px] bg-black/5 dark:bg-white/5 backdrop-blur-md"
+              className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-800 h-[350px] sm:h-[450px] md:h-[500px] bg-black/5 dark:bg-white/5 backdrop-blur-md"
             >
               <iframe
                 className="w-full h-full"
@@ -266,7 +312,7 @@ const LandingPage = () => {
             </motion.div>
             <motion.div
               whileHover={{ y: -10, scale: 1.02 }}
-              className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-800 h-[500px] bg-black/5 dark:bg-white/5 backdrop-blur-md"
+              className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-800 h-[350px] sm:h-[450px] md:h-[500px] bg-black/5 dark:bg-white/5 backdrop-blur-md"
             >
               <iframe
                 className="w-full h-full"
@@ -279,7 +325,7 @@ const LandingPage = () => {
             </motion.div>
             <motion.div
               whileHover={{ y: -10, scale: 1.02 }}
-              className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-800 h-[500px] bg-black/5 dark:bg-white/5 backdrop-blur-md"
+              className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-800 h-[350px] sm:h-[450px] md:h-[500px] bg-black/5 dark:bg-white/5 backdrop-blur-md"
             >
               <iframe
                 className="w-full h-full"
@@ -295,11 +341,11 @@ const LandingPage = () => {
       </section>
 
       {/* Workflow Section */}
-      <section className="py-24 relative backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="py-12 sm:py-24 relative backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-16 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
                 How It Works
               </h2>
               <div className="space-y-8">
@@ -490,13 +536,13 @@ const LandingPage = () => {
       </section>
 
       {/* Contact & Footer Section */}
-      <section className="py-24 relative overflow-hidden backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
+      <section className="py-12 sm:py-24 relative overflow-hidden backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16">
           <div>
-            <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-neonBlue to-neonPurple">
+            <h2 className="text-2xl sm:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-neonBlue to-neonPurple">
               Get in Touch
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+            <p className="text-base sm:text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
               Have questions or feedback? We'd love to hear from you. Fill out
               the form and we'll get back to you shortly.
             </p>
@@ -687,7 +733,7 @@ const LandingPage = () => {
 
       {/* Footer */}
       <footer className="py-8 text-center text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800 bg-lightBg dark:bg-darkBg">
-        <div className="flex justify-center gap-8 mb-6">
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-6 px-4">
           <motion.a
             whileHover={{ scale: 1.1, color: "#00f3ff" }}
             href="#"
