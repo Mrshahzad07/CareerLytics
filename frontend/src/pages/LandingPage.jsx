@@ -561,7 +561,7 @@ const LandingPage = () => {
                   <MapPin size={24} />
                 </div>
                 <span className="text-lg group-hover:text-neonPurple transition-colors">
-                  123 Innovation Drive, Tech City, TC 90210
+                  Hebbal, Bengaluru, 560024
                 </span>
               </div>
             </div>
@@ -570,19 +570,25 @@ const LandingPage = () => {
               <h3 className="text-2xl font-bold mb-6">Connect with us</h3>
               <div className="flex gap-4">
                 <a
-                  href="#"
+                  href="https://www.instagram.com/mr_shazzu_04?igsh=OHowdjJ5OGxyMmc3"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500 hover:text-white transition-all duration-300 transform hover:scale-110"
                 >
                   <Instagram size={24} />
                 </a>
                 <a
-                  href="#"
+                  href="https://x.com/MdShahzad078?s=09"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-black hover:text-white transition-all duration-300 transform hover:scale-110"
                 >
                   <Twitter size={24} />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/md-shahzad-663b98292/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-[#0077b5] hover:text-white transition-all duration-300 transform hover:scale-110"
                 >
                   <Linkedin size={24} />

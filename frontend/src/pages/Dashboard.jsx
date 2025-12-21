@@ -123,27 +123,27 @@ const Dashboard = () => {
       ref={dashboardRef}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="space-y-8 p-4"
+      className="space-y-6 sm:space-y-8 p-2 sm:p-4"
     >
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neonBlue to-neonPurple">
+          <h1 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neonBlue to-neonPurple">
             Dashboard Overview
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-2">Track your progress and career growth</p>
+          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mt-1 sm:mt-2">Track your progress and career growth</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.05, backgroundColor: '#22d3ee' }}
           whileTap={{ scale: 0.95 }}
           onClick={downloadReport}
-          className="flex items-center gap-2 px-6 py-3 bg-neonBlue text-black font-bold rounded-xl transition-all shadow-lg shadow-neonBlue/20"
+          className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-neonBlue text-black font-bold rounded-xl transition-all shadow-lg shadow-neonBlue/20 text-sm sm:text-base w-full sm:w-auto"
         >
-          <Download size={20} /> Download Report
+          <Download size={18} /> Download Report
         </motion.button>
       </div>
       
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         <StatsCard 
           icon={<FileText size={32} />} 
           title="Resumes Analyzed" 
@@ -168,12 +168,12 @@ const Dashboard = () => {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
         <motion.div 
           whileHover={{ y: -5, boxShadow: "0 10px 30px -10px rgba(0, 243, 255, 0.1)" }}
-          className="bg-lightCardBg dark:bg-cardBg p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm transition-all duration-300"
+          className="bg-lightCardBg dark:bg-cardBg p-4 sm:p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm transition-all duration-300"
         >
-          <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+          <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
             <Award className="text-neonBlue" size={20} /> Performance Trend
           </h3>
           <Line data={scoreData} options={chartOptions} />
@@ -181,9 +181,9 @@ const Dashboard = () => {
 
         <motion.div 
           whileHover={{ y: -5, boxShadow: "0 10px 30px -10px rgba(188, 19, 254, 0.1)" }}
-          className="bg-lightCardBg dark:bg-cardBg p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm transition-all duration-300"
+          className="bg-lightCardBg dark:bg-cardBg p-4 sm:p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm transition-all duration-300"
         >
-          <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+          <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
             <BookOpen className="text-neonPurple" size={20} /> Top Skills
           </h3>
           <Bar data={skillData} options={chartOptions} />
@@ -191,9 +191,9 @@ const Dashboard = () => {
       </div>
 
       {/* Improvement Checklist */}
-      <div className="bg-lightCardBg dark:bg-cardBg p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
-        <h3 className="text-xl font-bold mb-6">Improvement Checklist</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="bg-lightCardBg dark:bg-cardBg p-4 sm:p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
+        <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Improvement Checklist</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           <CheckItem text="Add more keywords to your resume" completed={stats?.averageAtsScore > 70} />
           <CheckItem text="Quantify your achievements" completed={stats?.averageAtsScore > 80} />
           <CheckItem text="Include a summary section" completed={true} />
@@ -207,14 +207,14 @@ const Dashboard = () => {
 const StatsCard = ({ icon, title, value, color, bgColor }) => (
   <motion.div 
     whileHover={{ scale: 1.02, y: -5, borderColor: color === 'text-neonBlue' ? '#00f3ff' : color === 'text-neonPurple' ? '#bc13fe' : '#22c55e' }}
-    className="bg-lightCardBg dark:bg-cardBg p-6 rounded-2xl border border-gray-200 dark:border-gray-800 flex items-center gap-4 shadow-sm transition-all duration-300 group"
+    className="bg-lightCardBg dark:bg-cardBg p-4 sm:p-6 rounded-2xl border border-gray-200 dark:border-gray-800 flex items-center gap-3 sm:gap-4 shadow-sm transition-all duration-300 group"
   >
-    <div className={`p-4 ${bgColor} rounded-xl ${color} group-hover:scale-110 transition-transform duration-300`}>
+    <div className={`p-3 sm:p-4 ${bgColor} rounded-xl ${color} group-hover:scale-110 transition-transform duration-300`}>
       {icon}
     </div>
     <div>
-      <p className="text-gray-500 dark:text-gray-400 font-medium">{title}</p>
-      <p className="text-3xl font-bold text-gray-900 dark:text-white">{value}</p>
+      <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 font-medium">{title}</p>
+      <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{value}</p>
     </div>
   </motion.div>
 );

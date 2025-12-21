@@ -35,21 +35,22 @@ const Feedback = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="max-w-2xl mx-auto"
+      className="max-w-2xl mx-auto px-2 sm:px-0"
     >
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-neonBlue to-neonPurple rounded-2xl mb-6 shadow-lg shadow-neonPurple/20">
-          <MessageSquare size={32} className="text-white" />
+      <div className="text-center mb-6 sm:mb-10">
+        <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-neonBlue to-neonPurple rounded-xl sm:rounded-2xl mb-4 sm:mb-6 shadow-lg shadow-neonPurple/20">
+          <MessageSquare size={24} className="text-white sm:hidden" />
+          <MessageSquare size={32} className="text-white hidden sm:block" />
         </div>
-        <h1 className="text-4xl font-bold mb-4">We Value Your Feedback</h1>
-        <p className="text-gray-400 text-lg">
+        <h1 className="text-2xl sm:text-4xl font-bold mb-2 sm:mb-4">We Value Your Feedback</h1>
+        <p className="text-gray-400 text-sm sm:text-lg px-2">
           Help us improve CareerLytics by sharing your thoughts and suggestions.
         </p>
       </div>
 
-      <div className="bg-lightCardBg dark:bg-cardBg p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-xl">
+      <div className="bg-lightCardBg dark:bg-cardBg p-4 sm:p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-xl">
         {status === 'success' ? (
-          <div className="text-center py-10">
+          <div className="text-center py-6 sm:py-10">
             <div className="w-16 h-16 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <Send size={32} />
             </div>
@@ -64,7 +65,7 @@ const Feedback = () => {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2">Name</label>
                 <input
@@ -101,7 +102,8 @@ const Feedback = () => {
                       formData.rating >= star ? 'text-yellow-400' : 'text-gray-600'
                     }`}
                   >
-                    <Star size={32} fill={formData.rating >= star ? "currentColor" : "none"} />
+                    <Star size={28} className="sm:hidden" fill={formData.rating >= star ? "currentColor" : "none"} />
+                    <Star size={32} className="hidden sm:block" fill={formData.rating >= star ? "currentColor" : "none"} />
                   </button>
                 ))}
               </div>
@@ -122,7 +124,7 @@ const Feedback = () => {
             <button
               type="submit"
               disabled={status === 'submitting'}
-              className="w-full py-4 bg-gradient-to-r from-neonBlue to-neonPurple text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-neonBlue/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-3 sm:py-4 bg-gradient-to-r from-neonBlue to-neonPurple text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-neonBlue/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm sm:text-base"
             >
               {status === 'submitting' ? (
                 <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full"></div>

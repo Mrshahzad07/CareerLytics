@@ -26,12 +26,15 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-lightBg dark:bg-darkBg relative overflow-hidden transition-colors duration-300">
       {/* Navigation & Theme Toggle */}
-      <div className="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-20">
+      <div className="absolute top-0 left-0 w-full px-3 sm:px-6 py-4 sm:py-6 flex justify-between items-center z-20">
         <Link 
           to="/" 
-          className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-neonBlue transition-colors font-medium"
+          className="flex items-center gap-1 sm:gap-2 text-sm sm:text-base text-gray-600 dark:text-gray-400 hover:text-neonBlue transition-colors font-medium"
         >
-          <ArrowLeft size={20} /> Back to Home
+          <ArrowLeft size={18} className="sm:hidden" />
+          <ArrowLeft size={20} className="hidden sm:block" />
+          <span className="hidden sm:inline">Back to Home</span>
+          <span className="sm:hidden">Back</span>
         </Link>
         <ThemeToggle />
       </div>
@@ -45,12 +48,12 @@ const LoginPage = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-lightCardBg dark:bg-cardBg p-8 rounded-2xl border border-gray-200 dark:border-gray-800 w-full max-w-md z-10 shadow-2xl transition-colors duration-300"
+        className="bg-lightCardBg dark:bg-cardBg p-5 sm:p-8 rounded-2xl border border-gray-200 dark:border-gray-800 w-full max-w-md mx-3 sm:mx-0 z-10 shadow-2xl transition-colors duration-300"
       >
-        <h2 className="text-3xl font-bold text-center mb-2 bg-clip-text text-transparent bg-gradient-to-r from-neonBlue to-neonPurple">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2 bg-clip-text text-transparent bg-gradient-to-r from-neonBlue to-neonPurple">
           Welcome Back
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 text-center mb-8">Login to access your career dashboard</p>
+        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 text-center mb-6 sm:mb-8">Login to access your career dashboard</p>
 
         {error && (
           <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-3 rounded-lg mb-6 text-sm text-center">
@@ -58,7 +61,7 @@ const LoginPage = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-2">Email</label>
             <input
