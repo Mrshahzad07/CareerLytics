@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useAuth } from './AuthContext';
 
 const ResumeContext = createContext();
@@ -23,7 +23,7 @@ export const ResumeProvider = ({ children }) => {
           }
 
           // Optionally fetch latest from backend
-          // const response = await axios.get('http://localhost:8080/api/resume/user', ...);
+          // const response = await api.get('/api/resume/user', ...);
         } catch (error) {
           console.error("Failed to load resume data", error);
         }

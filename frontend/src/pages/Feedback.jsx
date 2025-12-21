@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquare, Star, Send } from 'lucide-react';
-import axios from 'axios';
+import api from '../api';
 
 const Feedback = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const Feedback = () => {
     try {
       const token = localStorage.getItem('token');
       // Mock endpoint for now, or real if backend is ready
-      // await axios.post('http://localhost:8080/api/feedback', formData, { headers: { Authorization: `Bearer ${token}` } });
+      // await api.post('/api/feedback', formData, { headers: { Authorization: `Bearer ${token}` } });
       
       // Simulate network delay for better UX
       await new Promise(resolve => setTimeout(resolve, 1000));

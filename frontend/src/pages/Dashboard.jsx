@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { motion } from 'framer-motion';
 import { Bar, Line } from 'react-chartjs-2';
 import {
@@ -37,7 +37,7 @@ const Dashboard = () => {
     const fetchStats = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8080/api/dashboard/stats', {
+        const response = await api.get('/api/dashboard/stats', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setStats(response.data);

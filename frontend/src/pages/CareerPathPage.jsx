@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Compass, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -22,7 +22,7 @@ const CareerPathPage = () => {
       setLoading(true);
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8080/api/career/path', {
+        const response = await api.get('/api/career/path', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setPaths(response.data);

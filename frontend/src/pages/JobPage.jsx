@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Briefcase, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -22,7 +22,7 @@ const JobPage = () => {
       setLoading(true);
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8080/api/jobs/recommend', {
+        const response = await api.get('/api/jobs/recommend', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setJobs(response.data);

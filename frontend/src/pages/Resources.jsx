@@ -1,5 +1,11 @@
-import { motion } from 'framer-motion';
-import { Briefcase, GraduationCap, FileText, ExternalLink, Download } from 'lucide-react';
+import { motion } from "framer-motion";
+import {
+  Briefcase,
+  GraduationCap,
+  FileText,
+  ExternalLink,
+  Download,
+} from "lucide-react";
 
 const Resources = () => {
   return (
@@ -10,7 +16,9 @@ const Resources = () => {
     >
       <div className="text-center">
         <h1 className="text-4xl font-bold mb-4">Career Resources</h1>
-        <p className="text-gray-400 text-lg">Curated tools and platforms to boost your career journey.</p>
+        <p className="text-gray-400 text-lg">
+          Curated tools and platforms to boost your career journey.
+        </p>
       </div>
 
       {/* Job Portals */}
@@ -50,7 +58,8 @@ const Resources = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <ResourceCard
             title="Tap Academy"
-            description="Master coding and development with expert-led courses."
+            description="Master coding and development with expert-led courses.
+            Gamify Learning! Simplify Employment!"
             link="https://thetapacademy.com/"
             cta="Explore Courses"
           />
@@ -84,9 +93,12 @@ const Resources = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-lightCardBg dark:bg-cardBg p-8 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-neonBlue transition-all text-center">
             <h3 className="text-xl font-bold mb-4">Free Resume Templates</h3>
-            <p className="text-gray-400 mb-6">Access our curated collection of professional resume templates on Google Drive.</p>
+            <p className="text-gray-400 mb-6">
+              Access our curated collection of professional resume templates on
+              Google Drive.
+            </p>
             <a
-              href="#" // Replace with actual Google Drive link
+              href="https://drive.google.com/drive/folders/1I_DDHfvEBDeSY3PzXtD-W0kUr_8HMVYS" // Replace with actual Google Drive link
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-bold"
@@ -97,7 +109,9 @@ const Resources = () => {
 
           <div className="bg-lightCardBg dark:bg-cardBg p-8 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-neonBlue transition-all text-center">
             <h3 className="text-xl font-bold mb-4">JobScan Templates</h3>
-            <p className="text-gray-400 mb-6">ATS-friendly templates designed to get you past the bots.</p>
+            <p className="text-gray-400 mb-6">
+              ATS-friendly templates designed to get you past the bots.
+            </p>
             <a
               href="https://www.jobscan.co/resume-templates"
               target="_blank"
@@ -113,17 +127,35 @@ const Resources = () => {
   );
 };
 
-const ResourceCard = ({ title, description, link, color, cta = "Visit Website" }) => (
+const ResourceCard = ({
+  title,
+  description,
+  link,
+  color,
+  cta = "Visit Website",
+}) => (
   <a
     href={link}
     target="_blank"
     rel="noopener noreferrer"
     className="block bg-lightCardBg dark:bg-cardBg p-6 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-neonBlue transition-all shadow-sm hover:shadow-md h-full flex flex-col"
   >
-    <h3 className={`text-xl font-bold mb-3 ${color || 'text-gray-900 dark:text-white'}`}>{title}</h3>
-    <p className="text-gray-600 dark:text-gray-400 mb-6 flex-grow">{description}</p>
+    <h3
+      className={`text-xl font-bold mb-3 ${
+        color || "text-gray-900 dark:text-white"
+      }`}
+    >
+      {title}
+    </h3>
+    <p className="text-gray-600 dark:text-gray-400 mb-6 flex-grow">
+      {description}
+    </p>
     <div className="flex items-center gap-2 text-neonBlue font-medium group">
-      {cta} <ExternalLink size={16} className="group-hover:translate-x-1 transition-transform" />
+      {cta}{" "}
+      <ExternalLink
+        size={16}
+        className="group-hover:translate-x-1 transition-transform"
+      />
     </div>
   </a>
 );

@@ -172,7 +172,7 @@ const LandingPage = () => {
           >
             <iframe
               className="w-full h-full"
-              src="" //my intro video
+              src="https://www.youtube.com/embed/VBD4CEO1XY4?si=v4uhnbmmiqWO4dFc"
               title="CareerLytics Intro"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -710,7 +710,7 @@ const LandingPage = () => {
             Contact
           </motion.a>
         </div>
-        <p>© 2024 CareerLytics. All rights reserved.</p>
+        <p>© 2025 CareerLytics. All rights reserved.</p>
       </footer>
     </div>
   );

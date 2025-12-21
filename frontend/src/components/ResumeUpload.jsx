@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { FileText, Upload, AlertCircle } from 'lucide-react';
 import { useResume } from '../context/ResumeContext';
 
@@ -35,7 +35,7 @@ const ResumeUpload = ({ onUploadSuccess }) => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:8080/api/resume/upload', formData, {
+      const response = await api.post('/api/resume/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
