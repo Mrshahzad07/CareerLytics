@@ -32,6 +32,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
+        // Skip CORS preflight requests
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
