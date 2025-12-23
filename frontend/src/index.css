@@ -15,3 +15,40 @@
 .neon-border {
   box-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
 }
+
+/* Global Print Styles */
+@media print {
+  /* Reset everything for print */
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  /* Hide navigation and other non-essential elements */
+  nav,
+  .print\\:hidden,
+  button:not(.print-include) {
+    display: none !important;
+  }
+  
+  /* Page settings for A4 */
+  @page {
+    size: A4;
+    margin: 15mm 20mm;
+  }
+  
+  /* Ensure proper page breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+  
+  .page-break-after {
+    page-break-after: always;
+  }
+  
+  .page-break-avoid {
+    page-break-inside: avoid;
+  }
+}
