@@ -543,12 +543,21 @@ const ResumeBuilder = () => {
             border-radius: 20px;
           }
           
-          /* Print Styles - Only show resume in A4 format */
+          /* Print Styles - Full A4 Resume */
           @media print {
-            /* Hide everything except the resume */
-            html, body {
-              width: 210mm !important;
-              height: 297mm !important;
+            /* Reset everything */
+            *, *::before, *::after {
+              box-sizing: border-box !important;
+            }
+            
+            html {
+              width: 100% !important;
+              height: 100% !important;
+            }
+            
+            body {
+              width: 100% !important;
+              height: 100% !important;
               margin: 0 !important;
               padding: 0 !important;
               background: white !important;
@@ -556,49 +565,81 @@ const ResumeBuilder = () => {
               print-color-adjust: exact !important;
             }
             
+            /* Hide everything */
             body * {
-              visibility: hidden;
+              visibility: hidden !important;
             }
             
+            /* Show only resume */
             #resume-content,
             #resume-content * {
               visibility: visible !important;
             }
             
             #resume-content {
-              position: fixed !important;
+              position: absolute !important;
               left: 0 !important;
               top: 0 !important;
-              width: 210mm !important;
-              min-height: 297mm !important;
-              max-width: 210mm !important;
-              padding: 10mm 15mm !important;
+              right: 0 !important;
+              width: 100% !important;
+              height: auto !important;
+              min-height: 100% !important;
+              padding: 12mm 18mm !important;
               margin: 0 !important;
+              background: white !important;
               box-shadow: none !important;
               border: none !important;
-              font-size: 10pt !important;
-              line-height: 1.3 !important;
-              box-sizing: border-box !important;
-              overflow: visible !important;
-            }
-            
-            @page {
-              size: A4 portrait;
-              margin: 0;
-            }
-            
-            .resume-paper {
-              width: 210mm !important;
-              min-height: 297mm !important;
-              padding: 0 !important;
-              box-shadow: none !important;
+              font-size: 11pt !important;
+              line-height: 1.4 !important;
               transform: none !important;
             }
             
-            /* Ensure links are blue and underlined for PDF */
-            a {
+            /* Resume paper reset */
+            .resume-paper {
+              width: 100% !important;
+              min-height: 100% !important;
+              max-width: 100% !important;
+              padding: 0 !important;
+              margin: 0 !important;
+              box-shadow: none !important;
+              border: none !important;
+              transform: none !important;
+            }
+            
+            /* Page settings */
+            @page {
+              size: A4;
+              margin: 0;
+            }
+            
+            /* Ensure text is black and links are blue */
+            #resume-content {
+              color: black !important;
+            }
+            
+            #resume-content a {
               color: #1d4ed8 !important;
               text-decoration: underline !important;
+            }
+            
+            /* Proper heading sizes */
+            #resume-content h1 {
+              font-size: 20pt !important;
+              margin-bottom: 8px !important;
+            }
+            
+            #resume-content h2 {
+              font-size: 11pt !important;
+              margin-bottom: 6px !important;
+            }
+            
+            /* Proper spacing */
+            #resume-content section {
+              margin-bottom: 12px !important;
+            }
+            
+            #resume-content header {
+              margin-bottom: 12px !important;
             }
           }
         `}</style>
