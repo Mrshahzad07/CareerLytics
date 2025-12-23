@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Eye, EyeOff } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, Eye, EyeOff, CheckCircle } from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
 
 const RegisterPage = () => {
@@ -11,6 +11,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -19,7 +20,10 @@ const RegisterPage = () => {
     setError('');
     const result = await register(fullName, email, password);
     if (result.success) {
-      navigate('/dashboard');
+      setSuccess(true);
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1500);
     } else {
       setError(result.message);
     }
@@ -57,6 +61,21 @@ const RegisterPage = () => {
         </h2>
         <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 text-center mb-6 sm:mb-8">Join CareerLytics today</p>
 
+        {/* Success Message */}
+        <AnimatePresence>
+          {success && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="bg-green-500/10 border border-green-500/50 text-green-500 p-4 rounded-lg mb-6 text-center flex items-center justify-center gap-2"
+            >
+              <CheckCircle size={20} />
+              <span className="font-medium">Registration Successful! Redirecting...</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {error && (
           <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-3 rounded-lg mb-6 text-sm text-center">
             {error}
@@ -73,6 +92,7 @@ const RegisterPage = () => {
               className="w-full bg-gray-50 dark:bg-darkBg border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-gray-900 dark:text-white focus:border-neonBlue focus:outline-none transition-colors"
               placeholder="John Doe"
               required
+              disabled={success}
             />
           </div>
           <div>
@@ -84,6 +104,7 @@ const RegisterPage = () => {
               className="w-full bg-gray-50 dark:bg-darkBg border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-gray-900 dark:text-white focus:border-neonBlue focus:outline-none transition-colors"
               placeholder="you@example.com"
               required
+              disabled={success}
             />
           </div>
           <div>
@@ -96,6 +117,7 @@ const RegisterPage = () => {
                 className="w-full bg-gray-50 dark:bg-darkBg border border-gray-300 dark:border-gray-700 rounded-lg p-3 pr-12 text-gray-900 dark:text-white focus:border-neonPurple focus:outline-none transition-colors"
                 placeholder="••••••••"
                 required
+                disabled={success}
               />
               <button
                 type="button"
@@ -109,9 +131,10 @@ const RegisterPage = () => {
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-neonBlue to-neonPurple text-white font-bold py-3 rounded-lg hover:opacity-90 transition-opacity shadow-lg shadow-neonBlue/20"
+            disabled={success}
+            className="w-full bg-gradient-to-r from-neonBlue to-neonPurple text-white font-bold py-3 rounded-lg hover:opacity-90 transition-opacity shadow-lg shadow-neonBlue/20 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Sign Up
+            {success ? 'Creating account...' : 'Sign Up'}
           </button>
         </form>
 

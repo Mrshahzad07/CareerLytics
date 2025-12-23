@@ -364,16 +364,28 @@ const ResumeBuilder = () => {
                   <div className="flex flex-wrap justify-center gap-x-3 text-sm">
                     {resumeData.personalInfo.phone && <span>{resumeData.personalInfo.phone}</span>}
                     {resumeData.personalInfo.phone && resumeData.personalInfo.email && <span>|</span>}
-                    {resumeData.personalInfo.email && <span>{resumeData.personalInfo.email}</span>}
+                    {resumeData.personalInfo.email && <a href={`mailto:${resumeData.personalInfo.email}`} className="text-blue-700 underline">{resumeData.personalInfo.email}</a>}
                     {resumeData.personalInfo.email && resumeData.personalInfo.location && <span>|</span>}
                     {resumeData.personalInfo.location && <span>{resumeData.personalInfo.location}</span>}
                   </div>
                   <div className="flex flex-wrap justify-center gap-x-3 text-sm mt-1">
-                    {resumeData.personalInfo.linkedin && <span>{resumeData.personalInfo.linkedin}</span>}
+                    {resumeData.personalInfo.linkedin && (
+                      <a href={resumeData.personalInfo.linkedin.startsWith('http') ? resumeData.personalInfo.linkedin : `https://${resumeData.personalInfo.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-blue-700 underline">
+                        {resumeData.personalInfo.linkedin}
+                      </a>
+                    )}
                     {resumeData.personalInfo.linkedin && resumeData.personalInfo.github && <span>|</span>}
-                    {resumeData.personalInfo.github && <span>{resumeData.personalInfo.github}</span>}
+                    {resumeData.personalInfo.github && (
+                      <a href={resumeData.personalInfo.github.startsWith('http') ? resumeData.personalInfo.github : `https://${resumeData.personalInfo.github}`} target="_blank" rel="noopener noreferrer" className="text-blue-700 underline">
+                        {resumeData.personalInfo.github}
+                      </a>
+                    )}
                     {(resumeData.personalInfo.linkedin || resumeData.personalInfo.github) && resumeData.personalInfo.portfolio && <span>|</span>}
-                    {resumeData.personalInfo.portfolio && <span>{resumeData.personalInfo.portfolio}</span>}
+                    {resumeData.personalInfo.portfolio && (
+                      <a href={resumeData.personalInfo.portfolio.startsWith('http') ? resumeData.personalInfo.portfolio : `https://${resumeData.personalInfo.portfolio}`} target="_blank" rel="noopener noreferrer" className="text-blue-700 underline">
+                        {resumeData.personalInfo.portfolio}
+                      </a>
+                    )}
                   </div>
                 </header>
 
@@ -452,7 +464,11 @@ const ResumeBuilder = () => {
                               <span className="font-bold">{proj.name}</span>
                               {proj.tech && <span className="text-xs">({proj.tech})</span>}
                             </div>
-                            {proj.link && <span className="text-xs">{proj.link}</span>}
+                            {proj.link && (
+                              <a href={proj.link.startsWith('http') ? proj.link : `https://${proj.link}`} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-700 underline">
+                                {proj.link}
+                              </a>
+                            )}
                           </div>
                           {proj.description && (
                             <ul className="list-disc list-outside ml-4 text-sm space-y-0.5">
@@ -527,46 +543,62 @@ const ResumeBuilder = () => {
             border-radius: 20px;
           }
           
-          /* Print Styles - Only show resume */
+          /* Print Styles - Only show resume in A4 format */
           @media print {
             /* Hide everything except the resume */
+            html, body {
+              width: 210mm !important;
+              height: 297mm !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              background: white !important;
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+            
             body * {
               visibility: hidden;
             }
             
             #resume-content,
             #resume-content * {
-              visibility: visible;
+              visibility: visible !important;
             }
             
             #resume-content {
-              position: absolute;
-              left: 0;
-              top: 0;
-              width: 100% !important;
-              min-height: auto !important;
-              padding: 0 !important;
+              position: fixed !important;
+              left: 0 !important;
+              top: 0 !important;
+              width: 210mm !important;
+              min-height: 297mm !important;
+              max-width: 210mm !important;
+              padding: 10mm 15mm !important;
               margin: 0 !important;
               box-shadow: none !important;
               border: none !important;
+              font-size: 10pt !important;
+              line-height: 1.3 !important;
+              box-sizing: border-box !important;
+              overflow: visible !important;
             }
             
             @page {
-              size: A4;
-              margin: 15mm 20mm;
-            }
-            
-            body {
-              background: white !important;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
+              size: A4 portrait;
+              margin: 0;
             }
             
             .resume-paper {
-              width: 100% !important;
-              min-height: auto !important;
+              width: 210mm !important;
+              min-height: 297mm !important;
               padding: 0 !important;
               box-shadow: none !important;
+              transform: none !important;
+            }
+            
+            /* Ensure links are blue and underlined for PDF */
+            a {
+              color: #1d4ed8 !important;
+              text-decoration: underline !important;
             }
           }
         `}</style>
