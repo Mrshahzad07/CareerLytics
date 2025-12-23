@@ -78,17 +78,41 @@ const Dashboard = () => {
     pdf.setFillColor(20, 20, 30);
     pdf.rect(0, 0, pageWidth, 45, 'F');
     
+    // Load and add logo
+    try {
+      const logoImg = new Image();
+      logoImg.crossOrigin = 'anonymous';
+      logoImg.src = '/logo.png';
+      await new Promise((resolve) => {
+        logoImg.onload = resolve;
+        logoImg.onerror = resolve;
+      });
+      
+      // Create canvas to get base64
+      const canvas = document.createElement('canvas');
+      canvas.width = logoImg.width;
+      canvas.height = logoImg.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(logoImg, 0, 0);
+      const logoBase64 = canvas.toDataURL('image/png');
+      
+      // Add logo to PDF
+      pdf.addImage(logoBase64, 'PNG', margin, 8, 28, 28);
+    } catch (e) {
+      console.log('Logo not loaded, using text fallback');
+    }
+    
     // Logo/Title
-    pdf.setFontSize(28);
+    pdf.setFontSize(24);
     pdf.setTextColor(...primaryColor);
     pdf.setFont('helvetica', 'bold');
-    pdf.text('CareerLytics', margin, 25);
+    pdf.text('CareerLytics', margin + 32, 22);
     
     // Subtitle
-    pdf.setFontSize(12);
+    pdf.setFontSize(10);
     pdf.setTextColor(200, 200, 200);
     pdf.setFont('helvetica', 'normal');
-    pdf.text('Career Analytics Report', margin, 35);
+    pdf.text('AI-Driven Insights', margin + 32, 30);
     
     // Date
     pdf.setFontSize(10);

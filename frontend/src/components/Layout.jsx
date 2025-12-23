@@ -53,13 +53,13 @@ const Layout = () => {
                   whileHover={{ scale: 1.05 }}
                   className="flex items-center gap-2"
                 >
-                  <motion.div
-                    className="w-9 h-9 rounded-xl bg-gradient-to-br from-neonBlue to-neonPurple flex items-center justify-center"
-                    whileHover={{ rotate: 180 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <Sparkles size={18} className="text-white" />
-                  </motion.div>
+                  <motion.img
+                    src="/logo.png"
+                    alt="CareerLytics"
+                    className="w-10 h-10 rounded-xl object-contain"
+                    whileHover={{ rotate: 5 }}
+                    transition={{ duration: 0.3 }}
+                  />
                   <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neonBlue to-neonPurple hidden sm:block">
                     CareerLytics
                   </span>
