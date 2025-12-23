@@ -25,13 +25,13 @@ public class Resume {
     private String email;
     private String phone;
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> skills;
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> education;
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> experience;
 
     @Column(length = 5000) // Allow longer text for extracted content if needed
@@ -39,7 +39,7 @@ public class Resume {
 
     private int atsScore;
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> missingKeywords;
     
     private String improvementSuggestions;
