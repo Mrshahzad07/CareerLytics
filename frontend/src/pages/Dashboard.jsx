@@ -52,17 +52,205 @@ const Dashboard = () => {
   }, []);
 
   const downloadReport = async () => {
-    const element = dashboardRef.current;
-    const canvas = await html2canvas(element);
-    const data = canvas.toDataURL('image/png');
-
     const pdf = new jsPDF('p', 'mm', 'a4');
-    const imgProperties = pdf.getImageProperties(data);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
-
-    pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    pdf.save('careerlytics_report.pdf');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const margin = 20;
+    let yPos = margin;
+    
+    // Colors
+    const primaryColor = [0, 243, 255]; // neonBlue
+    const secondaryColor = [188, 19, 254]; // neonPurple
+    const darkText = [30, 30, 30];
+    const grayText = [100, 100, 100];
+    
+    // Helper function to add text
+    const addText = (text, x, y, options = {}) => {
+      const { fontSize = 12, color = darkText, fontStyle = 'normal', align = 'left' } = options;
+      pdf.setFontSize(fontSize);
+      pdf.setTextColor(...color);
+      pdf.setFont('helvetica', fontStyle);
+      pdf.text(text, x, y, { align });
+      return y + (fontSize * 0.4);
+    };
+    
+    // Header with gradient-like effect
+    pdf.setFillColor(20, 20, 30);
+    pdf.rect(0, 0, pageWidth, 45, 'F');
+    
+    // Logo/Title
+    pdf.setFontSize(28);
+    pdf.setTextColor(...primaryColor);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('CareerLytics', margin, 25);
+    
+    // Subtitle
+    pdf.setFontSize(12);
+    pdf.setTextColor(200, 200, 200);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text('Career Analytics Report', margin, 35);
+    
+    // Date
+    pdf.setFontSize(10);
+    pdf.setTextColor(150, 150, 150);
+    const date = new Date().toLocaleDateString('en-US', { 
+      year: 'numeric', month: 'long', day: 'numeric' 
+    });
+    pdf.text(date, pageWidth - margin, 35, { align: 'right' });
+    
+    yPos = 60;
+    
+    // Summary Section
+    pdf.setFillColor(245, 247, 250);
+    pdf.roundedRect(margin, yPos - 5, pageWidth - (margin * 2), 40, 3, 3, 'F');
+    
+    yPos = addText('Performance Summary', margin + 5, yPos + 5, { 
+      fontSize: 16, fontStyle: 'bold', color: darkText 
+    });
+    yPos += 8;
+    
+    // Stats in a row
+    const statsWidth = (pageWidth - (margin * 2) - 20) / 3;
+    const statsData = [
+      { label: 'Resumes Analyzed', value: stats?.totalResumesAnalyzed || 0, color: primaryColor },
+      { label: 'Average ATS Score', value: stats?.averageAtsScore || 0, color: secondaryColor },
+      { label: 'Jobs Recommended', value: stats?.jobsRecommended || 0, color: [34, 197, 94] }
+    ];
+    
+    statsData.forEach((stat, index) => {
+      const xPos = margin + 5 + (statsWidth * index) + (index * 10);
+      pdf.setFontSize(24);
+      pdf.setTextColor(...stat.color);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text(String(stat.value), xPos + statsWidth / 2, yPos + 8, { align: 'center' });
+      
+      pdf.setFontSize(9);
+      pdf.setTextColor(...grayText);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text(stat.label, xPos + statsWidth / 2, yPos + 16, { align: 'center' });
+    });
+    
+    yPos += 45;
+    
+    // ATS Score History Section
+    yPos = addText('ATS Score History', margin, yPos, { 
+      fontSize: 14, fontStyle: 'bold', color: darkText 
+    });
+    yPos += 5;
+    
+    // Draw score chart
+    const scores = stats?.recentScores || [];
+    if (scores.length > 0) {
+      const chartHeight = 40;
+      const chartWidth = pageWidth - (margin * 2);
+      const barWidth = Math.min(30, chartWidth / scores.length - 5);
+      
+      scores.forEach((score, index) => {
+        const barHeight = (score / 100) * chartHeight;
+        const xPos = margin + (index * (barWidth + 10)) + 10;
+        
+        // Bar
+        pdf.setFillColor(...primaryColor);
+        pdf.roundedRect(xPos, yPos + chartHeight - barHeight, barWidth, barHeight, 2, 2, 'F');
+        
+        // Score label
+        pdf.setFontSize(8);
+        pdf.setTextColor(...darkText);
+        pdf.text(String(score), xPos + barWidth / 2, yPos + chartHeight - barHeight - 3, { align: 'center' });
+        
+        // Resume label
+        pdf.setFontSize(7);
+        pdf.setTextColor(...grayText);
+        pdf.text(`R${index + 1}`, xPos + barWidth / 2, yPos + chartHeight + 6, { align: 'center' });
+      });
+      yPos += chartHeight + 15;
+    } else {
+      yPos = addText('No resume data available yet.', margin, yPos + 5, { 
+        fontSize: 10, color: grayText 
+      });
+      yPos += 10;
+    }
+    
+    yPos += 10;
+    
+    // Skills Section
+    yPos = addText('Top Skills Identified', margin, yPos, { 
+      fontSize: 14, fontStyle: 'bold', color: darkText 
+    });
+    yPos += 8;
+    
+    const skills = Object.entries(stats?.skillDistribution || {});
+    if (skills.length > 0) {
+      skills.slice(0, 8).forEach(([skill, count], index) => {
+        const barMaxWidth = 80;
+        const barWidth = (count / Math.max(...Object.values(stats?.skillDistribution || {}))) * barMaxWidth;
+        
+        pdf.setFontSize(9);
+        pdf.setTextColor(...darkText);
+        pdf.text(skill, margin, yPos + 3);
+        
+        // Progress bar background
+        pdf.setFillColor(230, 230, 230);
+        pdf.roundedRect(margin + 50, yPos - 2, barMaxWidth, 6, 2, 2, 'F');
+        
+        // Progress bar fill
+        pdf.setFillColor(...secondaryColor);
+        pdf.roundedRect(margin + 50, yPos - 2, barWidth, 6, 2, 2, 'F');
+        
+        pdf.setFontSize(8);
+        pdf.setTextColor(...grayText);
+        pdf.text(String(count), margin + 55 + barMaxWidth, yPos + 3);
+        
+        yPos += 10;
+      });
+    } else {
+      yPos = addText('No skills data available yet.', margin, yPos, { 
+        fontSize: 10, color: grayText 
+      });
+    }
+    
+    yPos += 15;
+    
+    // Improvement Checklist
+    yPos = addText('Improvement Checklist', margin, yPos, { 
+      fontSize: 14, fontStyle: 'bold', color: darkText 
+    });
+    yPos += 8;
+    
+    const checklistItems = [
+      { text: 'Add more keywords to your resume', completed: (stats?.averageAtsScore || 0) > 70 },
+      { text: 'Quantify your achievements', completed: (stats?.averageAtsScore || 0) > 80 },
+      { text: 'Include a summary section', completed: true },
+      { text: 'Check for formatting errors', completed: (stats?.averageAtsScore || 0) > 60 }
+    ];
+    
+    checklistItems.forEach((item) => {
+      // Checkbox
+      if (item.completed) {
+        pdf.setFillColor(34, 197, 94);
+        pdf.circle(margin + 3, yPos, 3, 'F');
+        pdf.setTextColor(255, 255, 255);
+        pdf.setFontSize(7);
+        pdf.text('✓', margin + 1.5, yPos + 1.5);
+      } else {
+        pdf.setDrawColor(200, 200, 200);
+        pdf.circle(margin + 3, yPos, 3, 'S');
+      }
+      
+      pdf.setFontSize(10);
+      pdf.setTextColor(...(item.completed ? darkText : grayText));
+      pdf.text(item.text, margin + 10, yPos + 2);
+      yPos += 10;
+    });
+    
+    // Footer
+    pdf.setFillColor(245, 247, 250);
+    pdf.rect(0, pageHeight - 20, pageWidth, 20, 'F');
+    pdf.setFontSize(8);
+    pdf.setTextColor(...grayText);
+    pdf.text('Generated by CareerLytics - Your Career Analytics Platform', pageWidth / 2, pageHeight - 10, { align: 'center' });
+    
+    pdf.save('CareerLytics_Report.pdf');
   };
 
   if (loading) {
