@@ -535,6 +535,169 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Meet the Developers Section */}
+      <section className="py-12 sm:py-24 relative backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-16">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4"
+            >
+              Meet the{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-neonBlue to-neonPurple">
+                Developers
+              </span>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+            >
+              The creative minds behind CareerLytics — passionate about building
+              innovative solutions that transform careers.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Developer 1 - Md Shahzad */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 25px 50px -12px rgba(0, 243, 255, 0.25)",
+              }}
+              className="bg-lightCardBg dark:bg-cardBg p-8 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-800 hover:border-neonBlue transition-all duration-300 text-center group relative overflow-hidden"
+            >
+              {/* Glow Effect */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neonBlue to-neonPurple transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+
+              {/* Profile Image with Gradient Ring Frame */}
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56 mx-auto mb-8">
+                {/* Outer Gradient Ring */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-neonBlue via-purple-500 to-neonPurple p-1 animate-pulse group-hover:animate-none">
+                  <div className="w-full h-full rounded-full bg-lightCardBg dark:bg-cardBg"></div>
+                </div>
+                {/* Inner Image Container */}
+                <motion.div
+                  whileHover={{ scale: 1.05, rotate: 2 }}
+                  className="absolute inset-2 rounded-full overflow-hidden border-4 border-neonBlue/50 group-hover:border-neonBlue shadow-2xl shadow-neonBlue/30 transition-all duration-300"
+                >
+                  <img
+                    src="/shahzad.png"
+                    alt="Md Shahzad"
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+              </div>
+
+              <h3 className="text-xl sm:text-2xl font-bold mb-2 group-hover:text-neonBlue transition-colors">
+                Md Shahzad
+              </h3>
+              <p className="text-sm sm:text-base text-neonPurple font-semibold mb-3">
+                Agentic Full Stack Developer
+              </p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                Passionate about building AI-powered solutions that empower careers
+                and transform the job search experience.
+              </p>
+
+              {/* Social Links */}
+              <div className="flex justify-center gap-3 mt-6">
+                <a
+                  href="https://www.linkedin.com/in/md-shahzad-663b98292/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-[#0077b5] hover:text-white transition-all duration-300"
+                >
+                  <Linkedin size={18} />
+                </a>
+                <a
+                  href="https://www.instagram.com/mr_shazzu_04"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500 hover:text-white transition-all duration-300"
+                >
+                  <Instagram size={18} />
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Developer 2 - Bishal Kumar Patel */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              whileHover={{
+                y: -10,
+                boxShadow: "0 25px 50px -12px rgba(168, 85, 247, 0.25)",
+              }}
+              className="bg-lightCardBg dark:bg-cardBg p-8 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-800 hover:border-neonPurple transition-all duration-300 text-center group relative overflow-hidden"
+            >
+              {/* Glow Effect */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neonPurple to-neonBlue transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+
+              {/* Profile Image with Gradient Ring Frame */}
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56 mx-auto mb-8">
+                {/* Outer Gradient Ring */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-neonPurple via-pink-500 to-neonBlue p-1 animate-pulse group-hover:animate-none">
+                  <div className="w-full h-full rounded-full bg-lightCardBg dark:bg-cardBg"></div>
+                </div>
+                {/* Inner Image Container */}
+                <motion.div
+                  whileHover={{ scale: 1.05, rotate: -2 }}
+                  className="absolute inset-2 rounded-full overflow-hidden border-4 border-neonPurple/50 group-hover:border-neonPurple shadow-2xl shadow-neonPurple/30 transition-all duration-300"
+                >
+                  <img
+                    src="/bishal.png"
+                    alt="Bishal Kumar Patel"
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+              </div>
+
+              <h3 className="text-xl sm:text-2xl font-bold mb-2 group-hover:text-neonPurple transition-colors">
+                Bishal Kumar Patel
+              </h3>
+              <p className="text-sm sm:text-base text-neonBlue font-semibold mb-3">
+                Agentic Full Stack Developer
+              </p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                Dedicated to crafting intuitive user experiences and robust
+                backend systems that drive career success.
+              </p>
+
+              {/* Social Links */}
+              <div className="flex justify-center gap-3 mt-6">
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-[#0077b5] hover:text-white transition-all duration-300"
+                >
+                  <Linkedin size={18} />
+                </a>
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500 hover:text-white transition-all duration-300"
+                >
+                  <Instagram size={18} />
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact & Footer Section */}
       <section className="py-12 sm:py-24 relative overflow-hidden backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16">
