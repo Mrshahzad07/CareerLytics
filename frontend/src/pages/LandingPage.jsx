@@ -677,7 +677,7 @@ const LandingPage = () => {
               {/* Social Links */}
               <div className="flex justify-center gap-3 mt-6">
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/bishal-kumar-patel-215441307"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-[#0077b5] hover:text-white transition-all duration-300"
