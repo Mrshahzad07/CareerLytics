@@ -18,7 +18,8 @@ public class CorsFilter implements Filter {
     private static final List<String> ALLOWED_ORIGINS = Arrays.asList(
         "http://localhost:5173",
         "http://localhost:5174",
-        "https://careerlytics.netlify.app"
+        "https://careerlytics.netlify.app",
+        "https://careerlytics-frontend.onrender.com"
     );
 
     @Override
