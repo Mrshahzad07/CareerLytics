@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174", "https://careerlytics.netlify.app", "https://careerlytics-frontend.onrender.com"}, allowCredentials = "true")
 public class AuthController {
 
     private final AuthService authService;
