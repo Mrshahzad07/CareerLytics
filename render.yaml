@@ -1,0 +1,60 @@
+# Render Blueprint - CareerLytics
+# Deploy with: render.com/deploy
+
+services:
+  # Backend API Service
+  - type: web
+    name: careerlytics-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    region: oregon
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: careerlytics-db
+          property: connectionString
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: careerlytics-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: careerlytics-db
+          property: password
+      - key: DATABASE_DRIVER
+        value: org.postgresql.Driver
+      - key: HIBERNATE_DIALECT
+        value: org.hibernate.dialect.PostgreSQLDialect
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 8080
+
+  # Frontend Static Site
+  - type: web
+    name: careerlytics-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    rootDir: ./frontend
+    region: oregon
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: careerlytics-backend
+          envVarKey: RENDER_EXTERNAL_URL
+
+databases:
+  - name: careerlytics-db
+    databaseName: careerlytics
+    user: careerlytics
+    region: oregon
+    plan: free
